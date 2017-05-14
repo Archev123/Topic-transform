@@ -1,0 +1,39 @@
+file = open("Topics.txt", "r+")
+
+topic=4
+
+fin_word=[]
+topic_word=[[]]*topic
+
+n=0
+for i in file.read().split():
+    n += 1
+    if (n%2)!=0:
+        temp_str=list(i)
+        temp_wordTonumber=[]
+        temp_num=0
+        temp_digits = len(temp_str)-1
+        for j in range(len(temp_str)):
+            if temp_str[j] == "A":
+                temp_num += 1*(10**temp_digits)
+            if temp_str[j] == "B":
+                temp_num += 2 * (10 ** temp_digits)
+            if temp_str[j] == "C":
+                temp_num += 3 * (10 ** temp_digits)
+            if temp_str[j] == "D":
+                temp_num += 4 * (10 ** temp_digits)
+            temp_digits -= 1
+        fin_word.append(temp_num)
+
+for i in range(len(fin_word)):
+    if i % topic == 0:
+        topic_word[0].append(fin_word[i])
+    if i % topic == 1:
+        topic_word[1].append(fin_word[i])
+    if i % topic == 2:
+        topic_word[2].append(fin_word[i])
+    if i % topic == 3:
+        topic_word[3].append(fin_word[i])
+
+print fin_word
+print topic_word
