@@ -1,3 +1,5 @@
+import random
+
 file = open("Topics.txt", "r+")
 DaraSeries = open("PointerFinish.txt", "r+")
 fin_Topic_series = open("fin_Topic_series.txt", "wb")
@@ -41,14 +43,23 @@ for i in range(len(fin_word)):
         topic_word[3].append(temp_num)
 
 
+
 for i in DaraSeries.read().split():
     temp_pre_num = int(i)
-    for j in range(topic):
-        for k in range(word_number):
-            temp_topic_word=int(topic_word[j][k])
-            if temp_topic_word == temp_pre_num:
-                fin_word_series.append(int(j+1))
-                fin_Topic_series.write(str(j+1) + " ")
+    temp_var = 0
+    while temp_var == 0:
+        for j in range(topic):
+            for k in range(word_number):
+                temp_topic_word=int(topic_word[j][k])
+                if temp_topic_word == temp_pre_num:
+                    fin_word_series.append(int(j+1))
+                    fin_Topic_series.write(str(j+1) + " ")
+                    temp_var =1
+            break
+        if temp_var == 0:
+            temp_rad = random.randint(1,topic)
+            fin_Topic_series.write(str(temp_rad) + " ")
+            temp_var = 1
 
 fin_Topic_series.close()
 DaraSeries.close()
