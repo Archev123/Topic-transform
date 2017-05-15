@@ -1,9 +1,13 @@
 file = open("Topics.txt", "r+")
+DaraSeries = open("PointerFinish.txt", "r+")
+fin_Topic_series = open("fin_Topic_series.txt", "wb")
 
 topic=4
+word_number=10
 
 fin_word=[]
-topic_word=[[]]*topic
+topic_word=[[]for i in range(topic)]
+fin_word_series=[]
 
 n=0
 for i in file.read().split():
@@ -15,7 +19,7 @@ for i in file.read().split():
         temp_digits = len(temp_str)-1
         for j in range(len(temp_str)):
             if temp_str[j] == "A":
-                temp_num += 1*(10**temp_digits)
+                temp_num += 1 * (10 ** temp_digits)
             if temp_str[j] == "B":
                 temp_num += 2 * (10 ** temp_digits)
             if temp_str[j] == "C":
@@ -26,14 +30,25 @@ for i in file.read().split():
         fin_word.append(temp_num)
 
 for i in range(len(fin_word)):
-    if i % topic == 0:
-        topic_word[0].append(fin_word[i])
-    if i % topic == 1:
-        topic_word[1].append(fin_word[i])
-    if i % topic == 2:
-        topic_word[2].append(fin_word[i])
-    if i % topic == 3:
-        topic_word[3].append(fin_word[i])
+    temp_num = fin_word[i]
+    if (i % topic) == 0:
+        topic_word[0].append(temp_num)
+    if (i % topic) == 1:
+        topic_word[1].append(temp_num)
+    if (i % topic) == 2:
+        topic_word[2].append(temp_num)
+    if (i % topic) == 3:
+        topic_word[3].append(temp_num)
 
-print fin_word
-print topic_word
+
+for i in DaraSeries.read().split():
+    temp_pre_num = int(i)
+    for j in range(topic):
+        for k in range(word_number):
+            temp_topic_word=int(topic_word[j][k])
+            if temp_topic_word == temp_pre_num:
+                fin_word_series.append(int(j+1))
+                fin_Topic_series.write(str(j+1) + " ")
+
+fin_Topic_series.close()
+DaraSeries.close()
